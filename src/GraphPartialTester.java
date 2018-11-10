@@ -52,6 +52,7 @@ public class GraphPartialTester {
 			printStuff(n.getNeighbors());
 			System.out.println();
 		}
+		System.out.println(x.size());
 		testFindNode(imdbGraph.getMovies(), "Movie1 (2001)");
 	}
 
@@ -60,13 +61,13 @@ public class GraphPartialTester {
 	 * Verifies that a specific actress has been parsed.
 	 */
 	public void testSpecificActress () {
-		int a = 0;
-		Collection<? extends Node> x = imdbGraph.getActors();
+		Collection<? extends Node> x = imdbGraph.getMovies();
 		for(Node n : x) {
-			//System.out.println(n.getName());
-			a++;
+			System.out.println(n.getName());
+			printStuff(n.getNeighbors());
+			System.out.println();
 		}
-		//System.out.println(a);
+		System.out.println(x.size());
 		testFindNode(imdbGraph.getActors(), "Actress2");
 	}
 

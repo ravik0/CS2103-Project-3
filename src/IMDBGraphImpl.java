@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class IMDBGraphImpl implements IMDBGraph{
-	private Map<String, IMDBNode> _movies;
-	private Map<String, IMDBNode> _actors;
+	final private Map<String, IMDBNode> _movies;
+	final private Map<String, IMDBNode> _actors;
 
 	public IMDBGraphImpl (String actorsFilename, String actressesFilename) throws IOException {
 		_movies = new HashMap<String, IMDBNode>();
@@ -37,7 +37,8 @@ public class IMDBGraphImpl implements IMDBGraph{
 	}
 	
 	private void parse(String file) throws IOException {
-		final Scanner actorScan = new Scanner(new File(file), "ISO-8859-1");
+		final File scan = new File(file);
+		final Scanner actorScan = new Scanner(scan, "ISO-8859-1");
 		boolean startScanning = false;
 		String lastActor = "";
 		while (actorScan.hasNextLine()) {
@@ -49,12 +50,18 @@ public class IMDBGraphImpl implements IMDBGraph{
 				if(line.indexOf(" ") > 0){
 					int blankSpace = line.indexOf("	");
 					String actName = line.substring(0, blankSpace); 
-					if(!actName.contains("	")) {
-						_actors.put(actName, new IMDBNode(actName));
-						if(!actName.equals("")) lastActor = actName;
+					if(blankSpace != 0 && !actName.contains("	") && actName.length() != 0) {
+						lastActor = actName.trim();
 					}
+					boolean TV = line.contains("TV") || line.contains("\"");
 					int endMovie = line.indexOf(")");
-					if(endMovie != -1) {
+					if(endMovie != -1 && !TV) {
+						if (!_actors.containsKey(actName)) {
+							_actors.put(actName, new IMDBNode(actName));
+						}
+						if(!_actors.containsKey(lastActor)) {
+							_actors.put(lastActor, new IMDBNode(lastActor));
+						}
 						String movieName = line.substring(blankSpace, endMovie).trim().concat(")");
 						if(!_movies.containsKey(movieName)) {
 							_movies.put(movieName, new IMDBNode(movieName));
