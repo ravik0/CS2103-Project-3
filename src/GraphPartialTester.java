@@ -16,11 +16,13 @@ public class GraphPartialTester {
 	 */
 	@Test(timeout=5000)
 	public void findShortestPath () throws IOException {
-		//imdbGraph = new IMDBGraphImpl("actors_test.list", "actresses_test.list");
-		//final Node actor1 = imdbGraph.getActor("Actor1");
-		//final Node actress2 = imdbGraph.getActor("Actress2");
-		//final List<Node> shortestPath = searchEngine.findShortestPath(actor1, actress2);
-		//assertNull(shortestPath);  // there is no path between these people
+		imdbGraph = new IMDBGraphImpl("tests/actors_test.list", "tests/actresses_test.list");
+		final Node actor1 = imdbGraph.getActor("Actor1");
+		final Node actress2 = imdbGraph.getActor("Actress2");
+		final List<Node> shortestPath = searchEngine.findShortestPath(actor1, actress2);
+		assertNull(shortestPath);  // there is no path between these people
+		final List<Node> shortestPath2 = searchEngine.findShortestPath(imdbGraph.getActor("Actor4"), actor1);
+		assertNull(shortestPath2);
 	}
 
 	@Before
@@ -47,12 +49,6 @@ public class GraphPartialTester {
 	 */
 	public void testSpecificMovie () {
 		Collection<? extends Node> x = imdbGraph.getActors();
-		for(Node n : x) {
-			System.out.println(n.getName());
-			printStuff(n.getNeighbors());
-			System.out.println();
-		}
-		System.out.println(x.size());
 		testFindNode(imdbGraph.getMovies(), "Movie1 (2001)");
 	}
 
@@ -62,12 +58,6 @@ public class GraphPartialTester {
 	 */
 	public void testSpecificActress () {
 		Collection<? extends Node> x = imdbGraph.getMovies();
-		for(Node n : x) {
-			System.out.println(n.getName());
-			printStuff(n.getNeighbors());
-			System.out.println();
-		}
-		System.out.println(x.size());
 		testFindNode(imdbGraph.getActors(), "Actress2");
 	}
 

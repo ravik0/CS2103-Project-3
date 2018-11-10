@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -48,13 +47,13 @@ public class IMDBGraphImpl implements IMDBGraph{
 			}
 			if(startScanning) {
 				if(line.indexOf(" ") > 0){
-					int blankSpace = line.indexOf("	");
-					String actName = line.substring(0, blankSpace); 
+					final int blankSpace = line.indexOf("	");
+					final String actName = line.substring(0, blankSpace); 
 					if(blankSpace != 0 && !actName.contains("	") && actName.length() != 0) {
 						lastActor = actName.trim();
 					}
-					boolean TV = line.contains("TV") || line.contains("\"");
-					int endMovie = line.indexOf(")");
+					final boolean TV = line.contains("TV") || line.contains("\"");
+					final int endMovie = line.indexOf(")");
 					if(endMovie != -1 && !TV) {
 						if (!_actors.containsKey(actName)) {
 							_actors.put(actName, new IMDBNode(actName));
