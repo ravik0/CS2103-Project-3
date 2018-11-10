@@ -28,7 +28,7 @@ public class GraphPartialTester {
 	 * Instantiates the graph
 	 */
 	public void setUp () throws IOException {
-		imdbGraph = new IMDBGraphImpl("actors_test.list", "actresses_test.list");
+		imdbGraph = new IMDBGraphImpl("tests/actors_test.list", "tests/actresses_test.list");
 		searchEngine = new GraphSearchEngineImpl();
 	}
 
@@ -46,6 +46,13 @@ public class GraphPartialTester {
 	 * Verifies that a specific movie has been parsed.
 	 */
 	public void testSpecificMovie () {
+		int a = 0;
+		Collection<? extends Node> x = imdbGraph.getMovies();
+		for(Node n : x) {
+			System.out.println(n.getName());
+			a++;
+		}
+		System.out.println(a);
 		testFindNode(imdbGraph.getMovies(), "Movie1 (2001)");
 	}
 
@@ -54,6 +61,13 @@ public class GraphPartialTester {
 	 * Verifies that a specific actress has been parsed.
 	 */
 	public void testSpecificActress () {
+		int a = 0;
+		Collection<? extends Node> x = imdbGraph.getActors();
+		for(Node n : x) {
+			System.out.println(n.getName());
+			a++;
+		}
+		System.out.println(a);
 		testFindNode(imdbGraph.getActors(), "Actress2");
 	}
 
