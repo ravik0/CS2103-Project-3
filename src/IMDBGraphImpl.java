@@ -39,6 +39,7 @@ public class IMDBGraphImpl implements IMDBGraph{
 	private void parse(String file) throws IOException {
 		final Scanner actorScan = new Scanner(new File(file), "ISO-8859-1");
 		boolean startScanning = false;
+		String lastActor = "";
 		while (actorScan.hasNextLine()) {
 			String line = actorScan.nextLine();
 			if(!startScanning && line.equals("----			------")) {
@@ -47,9 +48,10 @@ public class IMDBGraphImpl implements IMDBGraph{
 			if(startScanning) {
 				if(line.indexOf(" ") > 0){
 					int blankSpace = line.indexOf("	");
-					String actName = line.substring(0, blankSpace);
+					String actName = line.substring(0, blankSpace); 
 					if(!actName.contains("	")) {
 						_actors.put(actName, new IMDBNode(actName));
+						if(!actName.equals("")) lastActor = actName;
 					}
 					int endMovie = line.indexOf(")");
 					if(endMovie != -1) {
@@ -57,6 +59,16 @@ public class IMDBGraphImpl implements IMDBGraph{
 						if(!_movies.containsKey(movieName)) {
 							_movies.put(movieName, new IMDBNode(movieName));
 						}
+						if(movieName.equals("")) {
+							_movies.remove(movieName);
+						}
+						else {
+							_movies.get(movieName).addEdge(_actors.get(lastActor));
+							_actors.get(lastActor).addEdge(_movies.get(movieName));
+						}
+					}
+					if(actName.equals("")) {
+						_actors.remove(actName);
 					}
 				}
 			}
