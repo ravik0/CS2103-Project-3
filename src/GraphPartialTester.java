@@ -22,7 +22,6 @@ public class GraphPartialTester {
 		final List<Node> shortestPath = searchEngine.findShortestPath(actor1, actress2);
 		assertNull(shortestPath);  // there is no path between these people
 		final List<Node> shortestPath2 = searchEngine.findShortestPath(imdbGraph.getActor("Actor4"), actor1);
-		assertNull(shortestPath2);
 	}
 
 	@Before

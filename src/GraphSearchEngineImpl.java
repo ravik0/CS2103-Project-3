@@ -33,23 +33,24 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
 
 	private MapHolder<Node,Integer> findNodeDistances(Node s, Node t) {
 		final Queue<Node> bfs = new ConcurrentLinkedQueue<Node>();
+		final Queue<Integer> nodeDist = new ConcurrentLinkedQueue<Integer>();
 		final Map<Node, Integer> nodeDistances = new HashMap<Node, Integer>();
 		final Map<Integer, Node> nodeDistancesSwapped = new HashMap<Integer, Node>();
 		
 		bfs.offer(s);
-		int distance = 0;
+		nodeDist.offer(0);
 		while(bfs.size() > 0) {
 			final Node n = bfs.poll();
+			final Integer distance = nodeDist.poll();
 			nodeDistances.put(n, distance);
 			nodeDistancesSwapped.put(distance, n);
-			System.out.println(n.getName() + ":" + distance);
 			if(n.equals(t)) break;
 			for(Node n1 : n.getNeighbors()) {
 				if(!bfs.contains(n1) && !nodeDistances.containsKey(n1)) {
 					bfs.offer(n1);
+					nodeDist.offer(distance+1);
 				}
 			}
-			distance++;
 		}
 		return new MapHolder<Node, Integer>(nodeDistances, nodeDistancesSwapped);
 	}
