@@ -57,7 +57,7 @@ public class IMDBGraphImpl implements IMDBGraph{
 						lastActor = actName.trim();
 					}
 					final boolean TV = line.contains("TV") || line.contains("\"");
-					final int endMovie = line.lastIndexOf(")");
+					final int endMovie = findYearIndex(line);
 					if(endMovie != -1 && !TV) {
 						if (!_actors.containsKey(actName)) {
 							_actors.put(actName, new IMDBNode(actName));
@@ -84,6 +84,13 @@ public class IMDBGraphImpl implements IMDBGraph{
 			}
 		} 
 		actorScan.close();
+	}
+	
+	private int findYearIndex(String x) {
+		for(int i = 1; i < x.length(); i++) {
+			if(x.substring(i, i+1).equals(")") && Character.isDigit(x.charAt(i-1))) return i;
+		}
+		return -1;
 	}
 	
 

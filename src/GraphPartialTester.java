@@ -82,9 +82,4 @@ public class GraphPartialTester {
 		assertTrue(found);
 	}
 	
-	private void printStuff(Collection<? extends Node> y) {
-		for(Node n: y) {
-			System.out.println(n.getName());
-		}
-	}
 }
