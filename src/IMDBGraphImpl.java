@@ -46,14 +46,18 @@ public class IMDBGraphImpl implements IMDBGraph{
 				startScanning = true;
 			}
 			if(startScanning) {
-				if(line.indexOf(" ") > 0){
+				if(line.equals("-----------------------------------------------------------------------------")) {
+					actorScan.close();
+					break;
+				}
+				else if(line.indexOf(" ") > 0){
 					final int blankSpace = line.indexOf("	");
 					final String actName = line.substring(0, blankSpace); 
 					if(blankSpace != 0 && !actName.contains("	") && actName.length() != 0) {
 						lastActor = actName.trim();
 					}
 					final boolean TV = line.contains("TV") || line.contains("\"");
-					final int endMovie = line.indexOf(")");
+					final int endMovie = line.lastIndexOf(")");
 					if(endMovie != -1 && !TV) {
 						if (!_actors.containsKey(actName)) {
 							_actors.put(actName, new IMDBNode(actName));

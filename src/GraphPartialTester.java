@@ -19,9 +19,16 @@ public class GraphPartialTester {
 		imdbGraph = new IMDBGraphImpl("tests/actors_test.list", "tests/actresses_test.list");
 		final Node actor1 = imdbGraph.getActor("Actor1");
 		final Node actress2 = imdbGraph.getActor("Actress2");
-		final List<Node> shortestPath = searchEngine.findShortestPath(actor1, actress2);
-		assertNull(shortestPath);  // there is no path between these people
-		final List<Node> shortestPath2 = searchEngine.findShortestPath(imdbGraph.getActor("Actor4"), actor1);
+		//final List<Node> shortestPath = searchEngine.findShortestPath(actor1, actress2);
+		//assertNull(shortestPath);  // there is no path between these people
+		final List<Node> shortestPath2 = searchEngine.findShortestPath(imdbGraph.getActor("Actor5"), actor1);
+		List<Node> findPath = new ArrayList<Node>();
+		findPath.add(imdbGraph.getActor("Actor5"));
+		findPath.add(imdbGraph.getMovie("Movie3 (2003)"));
+		findPath.add(imdbGraph.getActor("Actor3"));
+		findPath.add(imdbGraph.getMovie("Movie1 (2001)"));
+		findPath.add(imdbGraph.getActor("Actor1"));
+		assertEquals(findPath, shortestPath2);
 	}
 
 	@Before
