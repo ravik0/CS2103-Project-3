@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -30,25 +31,26 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
 	}
 
 	private List<NodeDistancePair> findNodeDistances(Node s, Node t) {
-		final Queue<Node> bfs = new ConcurrentLinkedQueue<Node>();
-		final Queue<Integer> nodeDist = new ConcurrentLinkedQueue<Integer>();
+		final LinkedHashMap<Node, Integer> bfs = new LinkedHashMap<Node,Integer>();
 		final List<NodeDistancePair> nodeDistances = new ArrayList<NodeDistancePair>();
+		final Map<Node, Integer> nodes = new HashMap<Node,Integer>();
 		
-		bfs.offer(s);
-		nodeDist.offer(0);
+		bfs.put(s,0);
 		while(bfs.size() > 0) {
-			final Node n = bfs.poll();
-			final Integer distance = nodeDist.poll();
-			nodeDistances.add(new NodeDistancePair(distance, n));
+			final NodeDistancePair node = getFirst(bfs);
+			bfs.remove(node.node);
+			final Node n = node.node;
+			final Integer distance = node.dist;
+			nodes.put(n, distance);
+			nodeDistances.add(node);
 			if(n.equals(t)) break;
 			for(Node n1 : n.getNeighbors()) {
-				if(!bfs.contains(n1) && !nodeDistances.contains(new NodeDistancePair(distance, n1))) {
-					bfs.offer(n1);
-					nodeDist.offer(distance+1);
+				if(!bfs.containsKey(n1) && !nodes.containsKey(n1)) {
+					bfs.put(n1, distance+1);
 				}
 			}
 		}
-		
+		System.out.println(nodeDistances.size());
 		return nodeDistances;
 	}
 	
@@ -89,4 +91,15 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
 		}
 		return null;
 	}
+	
+	private NodeDistancePair getFirst(LinkedHashMap<Node, Integer> x) {
+		if(x.isEmpty()) return null;
+		else {
+			for(Map.Entry<Node, Integer> entry : x.entrySet() ) {
+				return new NodeDistancePair(entry.getValue(), entry.getKey());
+			}
+		}
+		return null;
+	}
+	
 }

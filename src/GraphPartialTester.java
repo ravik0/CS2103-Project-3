@@ -11,10 +11,18 @@ public class GraphPartialTester {
 	IMDBGraph imdbGraph;
 	GraphSearchEngine searchEngine;
 
+	IMDBGraphImpl x = null;
+	@Test(timeout=100000)
+	public void testTest() {
+		Node a = x.getActor("Sheen, Charlie");
+		Node b = x.getActor("Marchi, Ann");
+		searchEngine.findShortestPath(a,b);
+	}
+	
 	/**
 	 * Verifies that there is no shortest path between a specific and actor and actress.
 	 */
-	@Test(timeout=5000)
+	//@Test(timeout=5000)
 	public void findShortestPath () throws IOException {
 		imdbGraph = new IMDBGraphImpl("tests/actors_test.list", "tests/actresses_test.list");
 		final Node actor1 = imdbGraph.getActor("Actor1");
@@ -38,9 +46,14 @@ public class GraphPartialTester {
 	public void setUp () throws IOException {
 		imdbGraph = new IMDBGraphImpl("tests/actors_test.list", "tests/actresses_test.list");
 		searchEngine = new GraphSearchEngineImpl();
+		try {
+			x = new IMDBGraphImpl("D:/Downloads/IMDB/actors.list", "D:/Downloads/IMDB/actresses.list");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	@Test
+	//@Test
 	/**
 	 * Just verifies that the graphs could be instantiated without crashing.
 	 */
@@ -49,7 +62,7 @@ public class GraphPartialTester {
 		// Yay! We didn't crash
 	}
 
-	@Test
+	//@Test
 	/**
 	 * Verifies that a specific movie has been parsed.
 	 */
@@ -58,7 +71,7 @@ public class GraphPartialTester {
 		testFindNode(imdbGraph.getMovies(), "Movie1 (2001)");
 	}
 
-	@Test
+	//@Test
 	/**
 	 * Verifies that a specific actress has been parsed.
 	 */
