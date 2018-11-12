@@ -46,11 +46,7 @@ public class GraphPartialTester {
 	public void setUp () throws IOException {
 		imdbGraph = new IMDBGraphImpl("tests/actors_test.list", "tests/actresses_test.list");
 		searchEngine = new GraphSearchEngineImpl();
-		try {
-			x = new IMDBGraphImpl("D:/Downloads/IMDB/actors.list", "D:/Downloads/IMDB/actresses.list");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		x = new IMDBGraphImpl("D:/Downloads/IMDB/actors.list", "D:/Downloads/IMDB/actresses.list");
 	}
 
 	//@Test
