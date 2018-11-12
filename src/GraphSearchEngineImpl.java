@@ -49,7 +49,10 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
 			for(Node n1 : n.getNeighbors()) {
 				if(!bfs.contains(n1) && !nodes.containsKey(n1)) {
 					bfs.put(n1, distance+1);
-					if(n1.equals(t)) break untilFindT;
+					if(n1.equals(t)) {
+						nodeDistances.add(new NodeDistancePair(distance+1,n1));
+						break untilFindT;
+					}
 				}
 			}
 		}
