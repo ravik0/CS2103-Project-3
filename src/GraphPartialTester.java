@@ -36,6 +36,7 @@ public class GraphPartialTester {
 		findPath.add(imdbGraph.getActor("Actor3"));
 		findPath.add(imdbGraph.getMovie("Movie1 (2001)"));
 		findPath.add(imdbGraph.getActor("Actor1"));
+		for(int i = 0; i < shortestPath2.size(); i++) System.out.println(shortestPath2.get(i).getName());
 		assertEquals(findPath, shortestPath2);
 	}
 

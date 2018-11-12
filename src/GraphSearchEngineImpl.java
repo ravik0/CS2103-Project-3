@@ -15,10 +15,10 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
 		final List<NodeDistancePair> nodeDistances = findNodeDistances(s, t);
 		final List<Node> tracking = new ArrayList<Node>();
 		tracking.add(t);
-		if(find(nodeDistances, t) == null) return null;
-		int dist = find(nodeDistances, t).dist-1;
+		NodeDistancePair found = find(nodeDistances, t);
+		if(found == null) return null;
+		int dist = found.dist-1;
 		while(dist >= 0) {
-			System.out.println(dist);
 			NodeDistancePair temp = find(nodeDistances, dist);
 			Node possible = temp.node;
 			if(tracking.get(tracking.size()-1).getNeighbors().contains(possible)) {
@@ -34,7 +34,7 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
 
 	private List<NodeDistancePair> findNodeDistances(Node s, Node t) {
 		final IMDBQueue bfs = new IMDBQueue();
-		final List<NodeDistancePair> nodeDistances = new ArrayList<NodeDistancePair>();
+		final List<NodeDistancePair> nodeDistances = new LinkedList<NodeDistancePair>();
 		final Map<Node, Integer> nodes = new HashMap<Node,Integer>();
 		
 		bfs.put(s, 0);
