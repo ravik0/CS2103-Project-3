@@ -38,6 +38,7 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
 		final Map<Node, Integer> nodes = new HashMap<Node,Integer>();
 		
 		bfs.put(s, 0);
+		untilFindT:
 		while(bfs.size() > 0) {
 			final NodeDistancePair node = bfs.getFirst();
 			final Node n = node.node;
@@ -45,10 +46,10 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
 			bfs.remove(n);
 			nodes.put(n, distance);
 			nodeDistances.add(node);
-			if(n.equals(t)) break;
 			for(Node n1 : n.getNeighbors()) {
 				if(!bfs.contains(n1) && !nodes.containsKey(n1)) {
 					bfs.put(n1, distance+1);
+					if(n1.equals(t)) break untilFindT;
 				}
 			}
 		}
