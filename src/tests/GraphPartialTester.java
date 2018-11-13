@@ -1,6 +1,14 @@
+package tests;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import main.GraphSearchEngine;
+import main.GraphSearchEngineImpl;
+import main.IMDBGraph;
+import main.IMDBGraphImpl;
+import main.Node;
+
 import java.util.*;
 import java.io.*;
 
@@ -48,7 +56,7 @@ public class GraphPartialTester {
 	 * Instantiates the graph
 	 */
 	public void setUp () throws IOException {
-		imdbGraph = new IMDBGraphImpl("tests/actors_test.list", "tests/actresses_test.list");
+		imdbGraph = new IMDBGraphImpl("files/actors_test.list", "files/actresses_test.list");
 		searchEngine = new GraphSearchEngineImpl();
 		x = new IMDBGraphImpl("D:/Downloads/IMDB/actors.list", "D:/Downloads/IMDB/actresses.list");
 	}

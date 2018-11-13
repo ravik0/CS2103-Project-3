@@ -1,9 +1,10 @@
+package main;
 import java.util.*;
 
 /**
  * An interface for a movie and actors bi-partite graph that contains inter-connected nodes.
  */
-interface IMDBGraph {
+public interface IMDBGraph {
 	/**
 	 * Gets all the actor nodes in the graph.
 	 * @return a collection of all the actor and actress nodes in the graph.
