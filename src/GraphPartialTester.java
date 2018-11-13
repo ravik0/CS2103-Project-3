@@ -12,7 +12,7 @@ public class GraphPartialTester {
 	GraphSearchEngine searchEngine;
 
 	IMDBGraphImpl x = null;
-	@Test(timeout=100000)
+	@Test(timeout=10000)
 	public void testTest() {
 		Node a = x.getActor("Sheen, Charlie");
 		Node b = x.getActor("Marchi, Ann");
