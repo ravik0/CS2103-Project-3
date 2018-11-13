@@ -12,17 +12,20 @@ public class GraphPartialTester {
 	GraphSearchEngine searchEngine;
 
 	IMDBGraphImpl x = null;
-	//@Test(timeout=100000)
+	@Test(timeout=100000)
 	public void testTest() {
 		Node a = x.getActor("Sheen, Charlie");
 		Node b = x.getActor("Marchi, Ann");
-		searchEngine.findShortestPath(a,b);
+		List<Node> ah = searchEngine.findShortestPath(a,b);
+		for(int i = 0; i < ah.size(); i++) {
+			System.out.println(ah.get(i).getName());
+		}
 	}
 	
 	/**
 	 * Verifies that there is no shortest path between a specific and actor and actress.
 	 */
-	@Test(timeout=5000)
+	//@Test(timeout=5000)
 	public void findShortestPath () throws IOException {
 		imdbGraph = new IMDBGraphImpl("tests/actors_test.list", "tests/actresses_test.list");
 		final Node actor1 = imdbGraph.getActor("Actor1");
@@ -47,7 +50,7 @@ public class GraphPartialTester {
 	public void setUp () throws IOException {
 		imdbGraph = new IMDBGraphImpl("tests/actors_test.list", "tests/actresses_test.list");
 		searchEngine = new GraphSearchEngineImpl();
-		//x = new IMDBGraphImpl("D:/Downloads/IMDB/actors.list", "D:/Downloads/IMDB/actresses.list");
+		x = new IMDBGraphImpl("D:/Downloads/IMDB/actors.list", "D:/Downloads/IMDB/actresses.list");
 	}
 
 	//@Test

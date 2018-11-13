@@ -10,54 +10,38 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class GraphSearchEngineImpl implements GraphSearchEngine{
 
-	@Override
 	public List<Node> findShortestPath(Node s, Node t) {
-		final List<NodeDistancePair> nodeDistances = findNodeDistances(s, t);
+		final Map<Node, NodeAndParent> nodes = findNodeDistances(s,t);
 		final List<Node> tracking = new ArrayList<Node>();
 		tracking.add(t);
-		NodeDistancePair found = find(nodeDistances, t);
-		if(found == null) return null;
-		int dist = found.dist-1;
-		while(dist >= 0) {
-			NodeDistancePair temp = find(nodeDistances, dist);
-			Node possible = temp.node;
-			if(tracking.get(tracking.size()-1).getNeighbors().contains(possible)) {
-				tracking.add(possible);
-				dist--;
-			}
-			else {
-				nodeDistances.remove(temp);
-			}
+		while(!tracking.get(tracking.size()-1).equals(s)) {
+			final NodeAndParent ofNode = nodes.get(tracking.get(tracking.size()-1));
+			tracking.add(ofNode.parent);
 		}
 		return reverse(tracking);
 	}
 
-	private List<NodeDistancePair> findNodeDistances(Node s, Node t) {
-		final IMDBQueue bfs = new IMDBQueue();
-		final List<NodeDistancePair> nodeDistances = new LinkedList<NodeDistancePair>();
-		final Map<Node, Integer> nodes = new HashMap<Node,Integer>();
-		
-		bfs.put(s, 0);
+	private Map<Node, NodeAndParent> findNodeDistances(Node s, Node t) {
+		final Queue<Node> bfs = new LinkedList<Node>();
+		final Map<Node, Integer> bfsContains = new HashMap<Node,Integer>();
+		final Map<Node, NodeAndParent> nodes = new HashMap<Node, NodeAndParent>();
+		bfs.offer(s);
+		bfsContains.put(s, 0);
 		untilFindT:
 		while(bfs.size() > 0) {
-			final NodeDistancePair node = bfs.getFirst();
-			final Node n = node.node;
-			final Integer distance = node.dist;
-			bfs.remove(n);
-			nodes.put(n, distance);
-			nodeDistances.add(node);
-			for(Node n1 : n.getNeighbors()) {
-				if(!bfs.contains(n1) && !nodes.containsKey(n1)) {
-					bfs.put(n1, distance+1);
-					if(n1.equals(t)) {
-						nodeDistances.add(new NodeDistancePair(distance+1,n1));
-						break untilFindT;
-					}
+			Node parent = bfs.poll();
+			bfsContains.remove(parent);
+			for(Node n1 : parent.getNeighbors()) {
+				if(!bfsContains.containsKey(n1) && !nodes.containsKey(n1)) {
+					bfs.offer(n1);
+					bfsContains.put(n1, 0);
+					nodes.put(n1, new NodeAndParent(parent, n1));
 				}
+				if(n1.equals(t)) break untilFindT;
 			}
 		}
-		System.out.println(nodeDistances.size());
-		return nodeDistances;
+		System.out.println(nodes.size());
+		return nodes;
 	}
 	private List<Node> reverse(List<Node> in) {
 		final List<Node> out = new ArrayList<Node>();
@@ -66,19 +50,14 @@ public class GraphSearchEngineImpl implements GraphSearchEngine{
 		}
 		return out;
 	}
-	
-	private NodeDistancePair find(List<NodeDistancePair> x, Node n) {
-		for(int i = 0; i < x.size(); i++) {
-			if(x.get(i).node.equals(n)) return x.get(i);
+
+	private class NodeAndParent {
+		final public Node child;
+		final public Node parent;
+		
+		public NodeAndParent(Node pa, Node ch) {
+			child = ch;
+			parent = pa;
 		}
-		return null;
 	}
-	
-	private NodeDistancePair find(List<NodeDistancePair> x, int d) {
-		for(int i = 0; i < x.size(); i++) {
-			if(x.get(i).dist == d) return x.get(i);
-		}
-		return null;
-	}
-	
 }
