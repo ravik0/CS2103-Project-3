@@ -84,54 +84,36 @@ public class IMDBGraphImpl implements IMDBGraph{
 				if(line.equals("-----------------------------------------------------------------------------")) {
 					break; //if that is the line, then we have reached the end
 				}
-				else if(line.indexOf(" ") > 0){ //if there is a space in the line
-					final int blankSpace = line.indexOf("	"); //find index of tab
-					final String actName = line.substring(0, blankSpace); //get actor name bc theres an actor there
-					if(blankSpace != 0 && !actName.contains("	") && actName.length() != 0) {
+				final int blankSpace = line.indexOf("	"); //find index of tab
+				String actName = ""; //actor name
+				if(blankSpace > 0) {
+					actName = line.substring(0, blankSpace); //get actor name bc theres an actor there
+					if(!actName.contains("	")) {
 						lastActor = actName.trim(); //if the actname isn't blank then its a hit
 					}
-					final boolean TV = line.contains("TV") || line.contains("\""); //check for quotations or TV
-					final int endMovie = findYearIndex(line); //find the movie index
-					if(endMovie != -1 && !TV) { //if not TV and there is actually a movie
-						if (!_actors.containsKey(actName)) {
-							_actors.put(actName, new IMDBNode(actName)); //if actname isn't in there, put it in
-						}
-						if(!_actors.containsKey(lastActor)) {
-							_actors.put(lastActor, new IMDBNode(lastActor)); //if lastActor isn't in there already, put it in
-						}
-						String movieName = line.substring(blankSpace, endMovie).trim().concat(")"); //find movie name
-						if(!_movies.containsKey(movieName)) {
-							_movies.put(movieName, new IMDBNode(movieName)); //if not there, put it in
-						}
-						if(movieName.equals("")) {
-							_movies.remove(movieName); //but if it's empty, remove it
-						}
-						else {
-							_movies.get(movieName).addEdge(_actors.get(lastActor));
-							_actors.get(lastActor).addEdge(_movies.get(movieName));
-							//add edges to movie & actor
-						}
+					line = line.substring(blankSpace); //remove actor from the line
+				}
+				final boolean TV = line.contains("TV") || line.contains("\""); //check for quotations or TV
+				final int endMovie = line.indexOf(")"); //find the movie index
+				if(endMovie > 0 && !TV) { //if not TV and there is actually a movie
+					if (!_actors.containsKey(actName) && !actName.equals("")) {
+						_actors.put(actName, new IMDBNode(actName)); //if actname isn't in there, put it in
 					}
-					if(actName.equals("")) {
-						_actors.remove(actName); //if actname blank, remove it
+					if(!_actors.containsKey(lastActor) && !lastActor.equals("")) {
+						_actors.put(lastActor, new IMDBNode(lastActor)); //if lastActor isn't in there already, put it in
+					}
+					String movieName = line.substring(0, endMovie).trim().concat(")"); //find movie name
+					if(!_movies.containsKey(movieName)) {
+						_movies.put(movieName, new IMDBNode(movieName)); //if not there, put it in
+					}
+					else {
+						_movies.get(movieName).addEdge(_actors.get(lastActor));
+						_actors.get(lastActor).addEdge(_movies.get(movieName));
+						//add edges to movie & actor
 					}
 				}
 			}
 		} 
 		actorScan.close();
 	}
-	
-	/**
-	 * In a given string, looks for the year of the movie by finding the first index with a digit and then a ")".
-	 * @param x the string to look through
-	 * @return the index of the parenthesis or -1 if it is not found
-	 */
-	private int findYearIndex(String x) {
-		for(int i = 1; i < x.length(); i++) {
-			if(x.substring(i, i+1).equals(")") && Character.isDigit(x.charAt(i-1))) return i;
-		}
-		return -1;
-	}
-	
-
 }

@@ -24,10 +24,6 @@ public class GraphPartialTester {
 	public void testTest() {
 		Node a = x.getActor("Sheen, Charlie");
 		Node b = x.getActor("Marchi, Ann");
-		List<Node> ah = searchEngine.findShortestPath(a,b);
-		for(int i = 0; i < ah.size(); i++) {
-			System.out.println(ah.get(i).getName());
-		}
 	}
 	
 	/**
@@ -58,7 +54,7 @@ public class GraphPartialTester {
 	public void setUp () throws IOException {
 		imdbGraph = new IMDBGraphImpl("files/actors_test.list", "files/actresses_test.list");
 		searchEngine = new GraphSearchEngineImpl();
-		x = new IMDBGraphImpl("D:/Downloads/IMDB/actors.list", "D:/Downloads/IMDB/actresses.list");
+		x = new IMDBGraphImpl("files/actors_first_10000_lines.list", "files/actresses_first_10000_lines.list");
 	}
 
 	//@Test
