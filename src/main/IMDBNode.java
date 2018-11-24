@@ -9,7 +9,7 @@ import java.util.Collection;
  */
 public class IMDBNode implements Node{
 	final private String _name;
-	final private ArrayList<Node> edges;
+	final private Collection<Node> edges;
 	
 	/**
 	 * Constructs a new IMDBNode

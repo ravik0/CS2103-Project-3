@@ -106,11 +106,8 @@ public class IMDBGraphImpl implements IMDBGraph{
 					if(!_movies.containsKey(movieName)) {
 						_movies.put(movieName, new IMDBNode(movieName)); //if not there, put it in
 					}
-					else {
-						_movies.get(movieName).addEdge(_actors.get(lastActor));
-						_actors.get(lastActor).addEdge(_movies.get(movieName));
-						//add edges to movie & actor
-					}
+					_movies.get(movieName).addEdge(_actors.get(lastActor));
+					_actors.get(lastActor).addEdge(_movies.get(movieName));
 				}
 			}
 		} 
