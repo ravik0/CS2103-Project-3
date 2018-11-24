@@ -2,79 +2,78 @@ package tests;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.*;
-import java.io.*;
+
 import main.IMDBGraph;
 import main.IMDBGraphImpl;
 import main.Node;
+
+import java.util.*;
+import java.io.*;
+
 
 /**
  * Code to test IMDBActorsGraph and IMDBMoviesGraph.
  */
 public class DataLoadTest {
-    IMDBGraph graph;
+	IMDBGraph graph;
 
-    @Test(timeout=5000)
-    public void finishedLoading () {
-        System.out.println("CS210XGRDR +2 finishedLoading");
-    }
+	@Test(timeout=5000)
+	public void finishedLoading () {
+		System.out.println("CS2103GRDR +2 finishedLoading");
+	}
 
-    @Test(timeout=5000)
-    public void loadedApproximatelyCorrectNumberOfActors () {
-        final int TOLERANCE = 100;
-        final int CORRECT = 2184;
-        System.out.println(graph.getActors().size());
-        assertTrue(Math.abs(graph.getActors().size() - CORRECT) <= TOLERANCE);
-        System.out.println("CS210XGRDR +3 loadedApproximatelyCorrectNumberOfActors");
-    }
+	@Test(timeout=5000)
+	public void loadedApproximatelyCorrectNumberOfActors () {
+		final int TOLERANCE = 250;
+		final int CORRECT = 2184;
+		System.out.println(graph.getActors().size());
+		assertTrue(Math.abs(graph.getActors().size() - CORRECT) <= TOLERANCE);
+		System.out.println("CS2103GRDR +2 loadedApproximatelyCorrectNumberOfActors");
+	}
 
-    @Test(timeout=5000)
-    public void loadedApproximatelyCorrectNumberOfMovies () {
-        final int TOLERANCE = 100;
-        final int CORRECT = 4519;
-        System.out.println(graph.getMovies().size());
-        assertTrue(Math.abs(graph.getMovies().size() - CORRECT) <= TOLERANCE);
-        System.out.println("CS210XGRDR +3 loadedApproximatelyCorrectNumberOfMovies");
-    }
+	@Test(timeout=5000)
+	public void loadedApproximatelyCorrectNumberOfMovies () {
+		final int TOLERANCE = 1500;
+		final int CORRECT = 4519;
+		System.out.println(graph.getMovies().size());
+		assertTrue(Math.abs(graph.getMovies().size() - CORRECT) <= TOLERANCE);
+		System.out.println("CS2103GRDR +2 loadedApproximatelyCorrectNumberOfMovies");
+	}
 
-    @Test(timeout=5000)
-    public void testSpecificActor1 () {
-        testFindNode(graph.getActors(), "2 Chainz");
-    }
+	@Test(timeout=5000)
+	public void testSpecificActor1 () {
+		testFindNode(graph, "2 Chainz", true);
+	}
 
-    @Test(timeout=5000)
-    public void testSpecificActor2 () {
-        testFindNode(graph.getActors(), "Abad, Javier (III)");
-    }
+	@Test(timeout=5000)
+	public void testSpecificActress2 () {
+		testFindNode(graph, "Abboud, Sereen", true);
+	}
 
-    @Test(timeout=5000)
-    public void testSpecificActress2 () {
-        testFindNode(graph.getActors(), "Abboud, Sereen");
-    }
+	@Test(timeout=5000)
+	public void testSpecificMovie1 () {
+		testFindNode(graph, "What a Way to Go (1977)", false);
+	}
 
-    @Test(timeout=5000)
-    public void testSpecificMovie1 () {
-        testFindNode(graph.getMovies(), "What a Way to Go (1977)");
-    }
+	@Test(timeout=5000)
+	public void testSpecificMovie2 () {
+		testFindNode(graph, "Pele's Appeal (1990)", false);
+	}
 
-    @Test(timeout=5000)
-    public void testSpecificMovie2 () {
-        testFindNode(graph.getMovies(), "Pele's Appeal (1990)");
-    }
+	private static void testFindNode (IMDBGraph graph, String name, boolean isActor) {
+		Collection<? extends Node> nodes = isActor ? graph.getActors() : graph.getMovies();
+		boolean found = false;
+		for (Node node : nodes) {
+			if (node.getName().trim().equals(name)) {
+				found = true;
+			}
+		}
+		assertTrue(found);
+		System.out.println("CS2103GRDR +2 testFind" + name.replace(" ", ""));
+	}
 
-    private static void testFindNode (Collection<? extends Node> nodes, String name) {
-        boolean found = false;
-        for (Node node : nodes) {
-            if (node.getName().trim().equals(name)) {
-                found = true;
-            }
-        }
-        assertTrue(found);
-        System.out.println("CS210XGRDR +2 testFind" + name.replace(" ", ""));
-    }
-
-    @Before
-    public void setUp () throws IOException {
-        graph = new IMDBGraphImpl("files/actors_first_10000_lines.list", "files/actresses_first_10000_lines.list");
-    }
+	@Before
+	public void setUp () throws IOException {
+		graph = new IMDBGraphImpl("files/actors_first_10000_lines.list", "files/actresses_first_10000_lines.list");
+	}
 }

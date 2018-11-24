@@ -239,41 +239,281 @@ Name			Titles
 ----			------
 
 Actor1	Movie1 (2001)
-		Movie5 (2004)
-		"Movie5" (2003)
-		TvSeries (2003) (TV)
 
-Actor2	Movie2 (2002)
-
-Actor3	Movie3 (2003)
-		Movie1 (2001)
-
-Actor4	Movie9 (2009)
-
-Actor5	Movie2 (2002)
+Actor2	Movie1 (2001)
+		Movie2 (2002)
 		Movie3 (2003)
-		Movie9 (2009)
 
-Actor6	"TV" (3)
-		"kek" (3)
-		
-$hutter		Battle of the Sexes (2017)  (as $hutter Boy)  [Bobby Riggs Fan]  <10>
-			NVTION: The Star Nation Rapumentary (2016)  (as $hutter Boy)  [Himself]  <1>
-			Secret in Their Eyes (2015)  (uncredited)  [2002 Dodger Fan]
-			Steve Jobs (2015)  (uncredited)  [1988 Opera House Patron]
-			Straight Outta Compton (2015)  (uncredited)  [Club Patron/Dopeman]
+Actor3	Movie2 (2002)	
 
-'Curly' Leach, Timothy	"Port Protection" (2015) {Between Water and Wolves (#1.1)}  [Himself]
-			"Port Protection" (2015) {Collapse (#2.9)}  [Himself]
-			"Port Protection" (2015) {Dark Days Coming (#2.1)}
-			"Port Protection" (2015) {First Kill (#2.2)}  [Himself]
-			"Port Protection" (2015) {Jack of All Trades (#2.7)}  [Himself]
-			"Port Protection" (2015) {Legends in the Woods (#2.3)}  [Himself]
-			"Port Protection" (2015) {Out of Luck (#1.3)}  [Himself]
-			"Port Protection" (2015) {Rough Waters (#2.4)}  [Himself]
-			"Port Protection" (2015) {Shell-Shocked (#2.8)}  [Himself]
-			"Port Protection" (2015) {The Axeman Cometh (#1.2)}  [Himself]
-			"Port Protection" (2015) {The End of the End (#2.11)}  [Himself]
-			"Port Protection" (2015) {The Long Road (#2.6)}  [Himself]
-			"Port Protection" (2015) {The Odyssey (#2.5)}  [Himself]
-			"Port Protection" (2015) {Tiny Terrors (#2.10)}  [Himself]
+-----------------------------------------------------------------------------
+SUBMITTING UPDATES
+==================
+
+We rely on users of the database to submit corrections and additions to keep 
+the list as accurate and complete as possible. The most convenient method
+of submitting them is via the movie mail-server's central collection service. 
+For a comprehensive guide send an e-mail message with the subject: 
+
+  HELP ADD FULL
+
+to <mail-server@imdb.com>. 
+
+The instructions specific to the actors list are given below.
+
+
+KEYWORD INTERFACE
+=================
+
+This is the most flexible interface but can appear quite complex if you aren't
+familiar with the organization of the database. 
+
+Additions
+---------
+
+(1) mark the start of the data with the word:
+
+    ACTOR
+
+(2) for each addition, include on a separate line an entry of the form:
+
+     <name>|<title>|<attributes>|<character name>|<order>
+
+    where:
+
+     <name> is the actors name in <surname>, <firstname> order. Please note
+            the space after the comma as in: "Grant, Cary". 
+
+     <title> is the title of the movie or TV-series in which the actor 
+             appeared, please include the year of release as part of the title
+             (see examples below).
+
+     <attributes> records any award nominations or wins and in most cases will
+                  be empty. Example attributes include:
+
+       (AA)           = academy award winner (best actor)
+       (AAN)          = academy award nominee (best actor)
+       (S:AA)         = academy award winner (best supporting actor)
+       (S:AAN)        = academy award nominee (best supporting actor)
+       (GG)           = golden globe winner (best drama actor)
+       (GGN)          = golden globe nominee (best drama actor)
+
+     <character name>  is the character name of the actor.
+
+     <order> is a number to record the position in which the actor appears in
+             the credits (1=star billing)
+
+    The full additions guide contains more information on the formats. 
+
+    Notes:
+
+     - Apart from the <name> and <title> all these fields are optional, but
+       please leave the "|" separator for any blank fields, otherwise the some
+       of the data may be lost.
+
+     - Guest appearances in TV-series are NOT eligible for the main actors and
+       actresses list. The person must have played a recurring role across a 
+       number of episodes in order to be included. See the section describing
+       the biography database for an alternative method of adding this type of 
+       information.
+
+     - Please only credit individual names. For example, if all the members of
+       a particular rock group appeared in a movie then include them under 
+       their individual names and not the name of the whole group.
+
+     - The actors and actresses sections are for people only. No animals.
+
+    Examples:
+
+    ACTOR
+    Grant, Cary|North by Northwest (1959)||Rogert Thornhill|1
+    Grant, Cary|Awful Truth, The (1937)|||1
+    Grant, Cary|Philadelphia Story, The (1940)|||
+    Hopkins, Anthony|Silence of the Lambs, The (1990)|(AA)||
+
+(3) If the additions include a title that is new to the database, please also 
+    include a section of the form:
+
+    TITLE
+    <title>|<year>|
+
+    Example:
+    
+    TITLE
+    North by Northwest (1959)|1959|
+    Silence of the Lambs, The (1960)|1990|
+
+(4) Mark the end of your data with the word
+
+    END
+
+    on a separate line.
+
+(5) Mail the data to <add@imdb.com>. The mail-server will mail a receipt back
+    to you and place the data in the queue for processing by the list managers 
+    in the next update.
+
+
+Character Name Additions
+------------------------
+
+If you wish to add character names to *existing* entries in the database only,
+use the keyword:
+
+  CHARA
+
+and the format:
+
+  <name>|<title>|<character name>
+
+
+Cast Ordering Additions
+-----------------------
+
+If you wish to add cast ordering information to *existing* entries in the 
+database only, use the keyword:
+
+  ORDER
+
+and the format:
+
+  <name>|<title>|<order>
+
+
+Deletions
+---------
+
+To delete an incorrect entry on the list, the format is similar to those 
+described above, but a '!' character is placed at the start of each entry. The
+format is:
+
+ACTOR
+!<name>|<title>|
+
+For example:
+
+ACTOR
+!Grant, Cary|Notorious (1992) (TV)|
+
+
+Corrections
+-----------
+
+(1) Correcting a name across the whole database
+
+    If you spot a spelling error in a name in the database, use the keyword
+
+      NAMECORRECT
+
+    and the format:
+
+      <current name>|<correct name>
+
+    For example:
+
+      NAMECORRECT
+      Bogart, Humphry|Bogart, Humphrey|
+
+(2) Replacing an individual entry
+
+    Replacements can be made by deleting the incorrect entry and adding the 
+    correct version. For example:
+
+      ACTOR
+      !Grant, Cary|Notorious (1992) (TV)|
+      Grant, Cary|Notorious (1946)|||
+
+(3) Other corrections
+
+    Finally, if your correction cannot be expressed in the forms above, use
+    the keyword:
+
+      CORRECT
+
+    and then include a description of your correction in a free text over as
+    many lines as you need.
+
+-----------------------------------------------------------------------------
+
+COPYING POLICY
+==============
+
+This file is copyright (c) 1990-2005 by The Internet Movie Database Ltd. All 
+rights reserved.
+
+Disclaimer
+----------
+   
+    This is a  database  of  movie  related  information  compiled  by
+    Internet  Movie  Database  Ltd (IMDb). While every effort has been
+    made to  ensure  the  accuracy  of  the  database  IMDb  gives  no
+    warranty  as  to  the accuracy of the information contained in the
+    database.  IMDb  reserves  the  right  to   withdraw   or   delete
+    information at any time. 
+       
+    This service is provided for the information of users only. It  is
+    not   provided  with  the  intention  that  users  rely  upon  the
+    information for any purposes. Accordingly,  IMDb  shall  under  no
+    circumstances  be liable for any loss or damage, including but not
+    limited to loss of profits, goodwill or indirect or  consequential
+    loss   arising   out   of  any  use  of  or  inaccuracies  in  the
+    information. All warranties express or  implied  are  excluded  to
+    the fullest extent permissible by law. 
+       
+    All information in this file  is  Copyright  2005  Internet  Movie
+    Database  Limited.  Reproduction,  distribution or transmission by
+    any means without the prior permission of IMDb is prohibited.  All
+    rights reserved. 
+
+    For further information contact <licensing@imdb.com>
+       
+         -------------------------------------------------------
+   
+    All data and software released by Internet Movie Database  Ltd  is
+    freely  available  to  anyone  within certain limitations. You are
+    encouraged to quote subsets of the database  in  USENET  articles,
+    movie  related  FAQs,  magazine  articles etc. We do ask, however,
+    that you make reference to the source of the data  and  provide  a
+    pointer to the database for the benefit of the reader. 
+       
+    Permission is granted  by  the  copyright  holder  to  allow  free
+    distribution  of  this  file  and  any  other part of the Internet
+    Movie  Database  in  an  ELECTRONIC  FORM  ONLY,   providing   the
+    following conditions are met: 
+       
+         1. NO FEE OF ANY KIND, however indirect, will be  charged
+            for  its  distribution.  If  this file is being stored
+            for  later  distribution  to  anyone   that   can   be
+            construed   as   a   customer   of  yourself  or  your
+            organisation YOU MUST contact Internet Movie  Database
+            Ltd for permission. 
+            
+         2. Each  of  the  database  files  may   be   distributed
+            individually  but  only  in an unaltered form. All the
+            header and trailer information, including this  notice
+            and  the  details  on how to access the database, must
+            remain intact. 
+            
+         3. Specifically the files may NOT be  used  to  construct
+            any  kind  of  on-line database (except for individual
+            personal use). Clearance for  ALL  such  on-line  data
+            resources   must  be  requested  from  Internet  Movie
+            Database Ltd 
+            
+         4. In addition, copies of  the  Internet  Movie  Database
+            frequently  asked  questions  list and additions guide
+            must be made available in the same area / by the  same
+            method as the other database files. 
+
+         5. CD-ROM  distribution  is  prohibited  without  written
+            permission from the Internet Movie Database Ltd 
+            
+    Distribution by e-mail, BBS and  Internet  systems  is  positively
+    encouraged within these limitations. 
+       
+    The files and software which make up the  movie  database  may  be
+    uploaded  to  commercial  BBS  systems  providing  that  the above
+    conditions are met and no *additional* fees are applied above  the
+    standard connect time or downloading charges. 
+
+    For further info visit http://www.imdb.com/licensing/contact
